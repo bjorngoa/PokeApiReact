@@ -11,11 +11,6 @@ const Card = ({ pokemonIndex, pokeImg }) => {
           src={pokeImg.front_default}
           alt=""
         />
-        <div>
-          {pokemonIndex
-            ? pokemonIndex.charAt(0).toUpperCase() + pokemonIndex.slice(1)
-            : "Bulbasaur"}
-        </div>
       </div>
     </>
   );
