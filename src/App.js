@@ -19,11 +19,6 @@ export default function App() {
       const res = await axios.get(`${baseURL}pokemon?limit=150&`);
       console.log(res.data);
       setNames(res.data.results);
-
-      /* .then((res) => {
-        console.log(res.data)
-        setNames(res.data)
-      }) */
     };
     getPokemon();
   }, []);
@@ -41,18 +36,24 @@ export default function App() {
     };
     getPokeImg();
   }, [pokemonIndex]);
+
   const pokemonNames = names.map((pokemon, idx) => {
-    const hyphen = pokemon.name.lastIndexOf("-") + 1 + pokemon.name;
-    const changeCase = () => {
-      hyphen.toUpperCase();
-    };
+    //function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
     if (pokemon.name.lastIndexOf("-") + 1) {
-      /* console.log(pokemon.name.lastIndexOf('-') + pokemon.name.toUpperCase()) */
-      changeCase();
+      //console.log(pokemon.name.lastIndexOf('-') + pokemon.name.charAt(0).toUpperCase()+ pokemon.name.slice(1))
+      console.log(
+        pokemon.name.replace(/\b[\w']+\b/g, (mName) => {
+          return mName.charAt(0).toUpperCase() + mName.substr(1).toLowerCase();
+        })
+      );
+
+      //{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)} -> was option value
     }
     return (
       <option key={idx} value={pokemon.name}>
-        {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+        {pokemon.name.replace(/\b[\w']+\b/g, (mName) => {
+          return mName.charAt(0).toUpperCase() + mName.substr(1).toLowerCase();
+        })}
       </option>
     );
   });
